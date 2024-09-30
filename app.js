@@ -1,110 +1,119 @@
-
-
-// Make an array of objects that store question,choices of question and answer
-
-var questions = [
-
+const quizData = [
     {
-        question:'Q1:which of the following is not a css box model property?',
-        Option1:'margin',
-        Option2:'padding',
-        Option3:'border-collapse',
-        correctOption:"border-collapse"
+      question: "What is the correct syntax to print a message in the console in JavaScript?",
+      a: "console.print('Hello World');",
+      b: "console.log('Hello World');",
+      c: "print.console('Hello World');",
+      d: "console.write('Hello World');",
+      correct: "b"
     },
-
-   
-
     {
-        question:'Q2:which of the following is not a javascript data type?',
-        Option1:'string',
-        Option2:'boolean',
-        Option3:'float',
-        correctOption:"float"
+      question: "Which of the following is a correct way to declare a JavaScript variable?",
+      a: "var myVar = 10;",
+      b: "variable myVar = 10;",
+      c: "v myVar = 10;",
+      d: "const var myVar = 10;",
+      correct: "a"
     },
-
     {
-    question:'Q3:where is the correct place to insert  a javascript ',
-    Option1:'Both The <body> and <head> section',
-    Option2:'The <body> section',
-    Option3:'The <head> section',
-    correctOption:"The <body> section"
+      question: "What keyword is used to define a constant in JavaScript?",
+      a: "let",
+      b: "var",
+      c: "const",
+      d: "static",
+      correct: "c"
     },
-
     {
-        question:'Q4:Inside which html element do we put the javascript? ',
-        Option1:'<js>',
-        Option2:'<script>',
-        Option3:'<javascript>',
-        correctOption:"<script>"
-        },
-
-
-        {
-            question:'Q5:How to write an if statement in javascript?',
-            Option1:'if i==5 then',
-            Option2:'if(i==5)',
-            Option3:'if i==5',
-            correctOption:"if (i==5)"
-            }
-   
-    
-       
-
-   
-];
-
-var ques = document.getElementById('ques')
-var opt1 = document.getElementById('opt1')
-var opt2 = document.getElementById('opt2')
-var opt3 = document.getElementById('opt3')
-var index = 0
-var btn = document.getElementById('btn')
-var score = 0
-
-
-
-
-
-function nextQuestion(){
-
-    var getOptions = document.getElementsByName('options')
-    for(var i=0; i<getOptions.length; i++){
-       if(getOptions[i].checked){
-        var selectedValue = getOptions[i].value 
-        var selectedQues = questions[index-1]['question']
-        var selectedAns = questions[index-1][`option${selectedValue}`]
-        var correctOption = questions[index-1][`correctOption`]
-        if(selectedAns==correctOption){
-            score++
-        }
-       }
-        getOptions[i].checked = false
-
+      question: "How can you convert a string to an integer in JavaScript?",
+      a: "Number()",
+      b: "parseInt()",
+      c: "Integer()",
+      d: "parseFloat()",
+      correct: "b"
+    },
+    {
+      question: "Which built-in method is used to remove the last element from an array?",
+      a: "pop()",
+      b: "shift()",
+      c: "remove()",
+      d: "slice()",
+      correct: "a"
     }
-    btn.disabled = true
-
-    if(index > questions.length -1){
-        console.log('your percentage is'+((score/questions.length) * 100).toFixed(2))
-
+  ];
+  
+  const quiz = document.getElementById('quiz');
+  const submitBtn = document.getElementById('submit');
+  const resultText = document.getElementById('result-text');
+  const popup = document.getElementById('popup');
+  const closeBtn = document.querySelector('.close');
+  
+  let currentQuestion = 0;
+  let score = 0;
+  
+  function loadQuiz() {
+    quiz.innerHTML = `
+      <h2>${quizData[currentQuestion].question}</h2>
+      <label>
+        <input type="radio" name="answer" value="a"> ${quizData[currentQuestion].a}
+      </label>
+      <label>
+        <input type="radio" name="answer" value="b"> ${quizData[currentQuestion].b}
+      </label>
+      <label>
+        <input type="radio" name="answer" value="c"> ${quizData[currentQuestion].c}
+      </label>
+      <label>
+        <input type="radio" name="answer" value="d"> ${quizData[currentQuestion].d}
+      </label>
+    `;
+  }
+  
+  function getSelectedAnswer() {
+    const answers = document.querySelectorAll('input[name="answer"]');
+    let selected = undefined;
+    answers.forEach(answer => {
+      if (answer.checked) {
+        selected = answer.value;
+      }
+    });
+    return selected;
+  }
+  
+  function showResult() {
+    const percentage = (score / quizData.length) * 100;
+    resultText.innerText = `Your Score: ${percentage}%`;
+    popup.style.display = 'block';  // Show popup
+  }
+  
+  submitBtn.addEventListener('click', () => {
+    const answer = getSelectedAnswer();
+    if (answer) {
+      if (answer === quizData[currentQuestion].correct) {
+        score++;
+      }
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuiz();
+      } else {
+        showResult();
+      }
+    } else {
+      alert("Please select an answer!");
     }
-    else{
-
-    ques.innerText = questions[index].question
-    opt1.innerText = questions[index].Option1
-    opt2.innerText = questions[index].Option2
-    opt3.innerText = questions[index].Option3
-    index++
-}
-
-
-}
-
-
-nextQuestion()
-
-function clicked(){
-    
-    btn.disabled = false
-}
+  });
+  
+  closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';  // Hide popup on close
+  });
+  
+  window.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      popup.style.display = 'none';  // Close the popup if clicking outside
+    }
+  });
+  
+  loadQuiz();
+  
+  
 
 

@@ -1,16 +1,105 @@
-*{
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-
-body{
-    width: 100%;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg,#E6D9A2 ,#CB80AB );
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    background: linear-gradient(to right bottom,rgb(54, 54, 90),rgb(53, 120, 70));
+  }E6D9A2
+  
+  .quiz-container {
+    background-color: #E6D9A2;
+    border-radius: 15px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  h1 {
+    color:#624E88;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  label:hover {
+    background-color: #CB80AB;
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  button {
+    background-color: #8967B3;
     color: white;
-    display: grid;
-    place-items: center;
-}
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #CB80AB;
+  }
+  
+  /* Popup Styles */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .popup-content {
+    text-align: center;
+  }
+  
+  .popup h2 {
+    color: #624E88;
+  }
+  
+  .popup p {
+    font-size: 18px;
+    margin: 15px 0;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #8967B3;
+  }
+  
+  .close:hover {
+    color: #8967B3;
+  }
+  
